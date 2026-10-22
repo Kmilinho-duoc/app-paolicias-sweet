@@ -14,12 +14,15 @@ fun FiltroCategorias(
     seleccionada: String,
     onSeleccion: (String) -> Unit
 ) {
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    Row(
+        modifier = Modifier.horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
         categorias.forEach { categoria ->
             FilterChip(
                 selected = categoria == seleccionada,
                 onClick = { onSeleccion(categoria) },
-                label = { Text(categoria) },
+                label = { Text(categoria, maxLines = 1) },
                 shape = RoundedCornerShape(8.dp)
             )
         }
