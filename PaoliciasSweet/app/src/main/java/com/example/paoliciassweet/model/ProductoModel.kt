@@ -22,8 +22,8 @@ val catalogoProductos = listOf(
     ProductoModel(3, "Pastelería fina", "Mini tartaletas y petit fours", "Pastelería", 18000, false, "🧁", 0xFFFFF0C2),
     ProductoModel(4, "Coffee break corporativo", "Para 10 a 100 personas", "Catering", 6500, true, "☕", 0xFFD5F0DC,
         tarifario = mapOf(
-            10 to 7500, 20 to 7000, 30 to 6800, 40 to 6600, 50 to 6500,
-            60 to 6300, 70 to 6200, 80 to 6100, 90 to 6000, 100 to 5900
+            10 to 6500, 20 to 6400, 30 to 6300, 40 to 6200, 50 to 6100,
+            60 to 6000, 70 to 5900, 80 to 5800, 90 to 5700, 100 to 5600
         )
     ),
     ProductoModel(5, "Cheesecake de frutilla", "Base crocante y frutos rojos", "Pastelería", 24000, false, "🍰", 0xFFFFD9E2),
