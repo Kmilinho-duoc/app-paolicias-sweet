@@ -11,8 +11,11 @@ data class ReservaModel(
     val fechaError: String? = null,
     val horaError: String? = null
 ) {
+    val precioPorPersona: Int
+        get() = producto?.let { it.tarifario[asistentes] ?: it.precio } ?: 0
+
     val total: Int
-        get() = producto?.let { if (it.porPersona) it.precio * asistentes else it.precio } ?: 0
+        get() = producto?.let { if (it.porPersona) precioPorPersona * asistentes else it.precio } ?: 0
 
     val abono: Int
         get() = total / 2
