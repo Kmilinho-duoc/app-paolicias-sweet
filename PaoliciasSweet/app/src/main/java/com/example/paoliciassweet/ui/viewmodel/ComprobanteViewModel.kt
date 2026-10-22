@@ -22,7 +22,7 @@ class ComprobanteViewModel : ViewModel() {
         }
     }
 
-    // actualiza el estado en SQLite (la captura/galería quedan para la entrega de recursos nativos)
+    // actualiza el estado en SQLite 
     fun onEnviarClick(context: Context, onSuccess: () -> Unit) {
         val actual = reserva ?: return
         viewModelScope.launch {
