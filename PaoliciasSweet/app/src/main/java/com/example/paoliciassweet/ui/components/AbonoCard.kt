@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.paoliciassweet.model.aPesos
 
-// Datos de la transferencia (cuenta demo) y estado del abono
+// Datos de la cuenta (demo) y estado del abono
 @Composable
 fun AbonoCard(abono: Int, estado: String) {
     Surface(
@@ -26,15 +26,8 @@ fun AbonoCard(abono: Int, estado: String) {
     ) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("Abono a transferir (50%)", style = MaterialTheme.typography.bodySmall)
-                Surface(shape = RoundedCornerShape(8.dp), color = MaterialTheme.colorScheme.errorContainer) {
-                    Text(
-                        estado,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
-                    )
-                }
+                Text("Garantía del 50%", style = MaterialTheme.typography.bodySmall)
+                EstadoChip(estado)
             }
             Text(abono.aPesos(), style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.primary)
             HorizontalDivider()
