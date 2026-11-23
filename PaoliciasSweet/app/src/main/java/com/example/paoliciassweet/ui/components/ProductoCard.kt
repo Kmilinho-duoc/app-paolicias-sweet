@@ -1,8 +1,6 @@
 package com.example.paoliciassweet.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.paoliciassweet.model.ProductoModel
 import com.example.paoliciassweet.model.aPesos
 
@@ -36,15 +31,7 @@ fun ProductoCard(producto: ProductoModel, onCotizar: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .size(72.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(producto.colorFondo)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(producto.emoji, fontSize = 32.sp)
-            }
+            ImagenProducto(producto = producto, modifier = Modifier.size(72.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(producto.nombre, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                 Text(producto.descripcion, style = MaterialTheme.typography.bodySmall)

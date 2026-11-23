@@ -57,7 +57,14 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
 
+    // Retrofit: conexión a los microservicios y a la API externa
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")   // <- nueva
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // muestra las peticiones en Logcat
+
     testImplementation(libs.junit)
+    implementation("io.coil-kt:coil-compose:2.7.0")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
