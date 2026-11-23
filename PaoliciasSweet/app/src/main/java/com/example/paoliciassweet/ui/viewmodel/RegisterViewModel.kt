@@ -1,7 +1,6 @@
 package com.example.paoliciassweet.ui.viewmodel
 
 import android.content.Context
-import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,10 +8,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paoliciassweet.data.database.AppDatabase
 import com.example.paoliciassweet.data.local.entity.UsuarioEntity
+import com.example.paoliciassweet.data.remote.dto.UsuarioDto
+import com.example.paoliciassweet.data.repository.UsuarioRepository
 import com.example.paoliciassweet.model.RegisterModel
+import com.example.paoliciassweet.model.Validaciones
 import kotlinx.coroutines.launch
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(
+    private val usuarios: UsuarioRepository = UsuarioRepository()
+) : ViewModel() {
     var uiState by mutableStateOf(RegisterModel())
         private set
 
@@ -31,7 +35,7 @@ class RegisterViewModel : ViewModel() {
         val nameError = if (state.name.trim().length < 3) "Ingresa tu nombre completo." else null
         val emailError = when {
             email.isBlank() -> "Ingresa tu correo."
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> "El correo no es válido."
+            !Validaciones.correoValido(email) -> "El correo no es válido."
             else -> null
         }
         val phoneError = if (state.phone.length != 9) "Ingresa 9 dígitos." else null
@@ -63,7 +67,9 @@ class RegisterViewModel : ViewModel() {
                     phone = state.phone,
                     password = state.password
                 )
-                db.usuarioDao().registerUser(newUser)
+                db.usuarioDao().registerUser(newUser) // login: se guarda en SQLite
+                // el perfil también va al microservicio de usuarios (si no hay conexión, el registro local igual queda)
+                usuarios.registrar(UsuarioDto(nombre = newUser.name, email = newUser.email, telefono = newUser.phone))
                 onSuccess()
             }
         }

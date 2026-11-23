@@ -16,4 +16,14 @@ interface UsuarioDao {
     // busca un usuario por correo
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
     suspend fun getUserByEmail(email: String): UsuarioEntity?
+
+    // administración de usuarios (rol Administrador)
+    @Query("SELECT * FROM users ORDER BY name")
+    suspend fun getAll(): List<UsuarioEntity>
+
+    @Query("UPDATE users SET rol = :rol WHERE id = :id")
+    suspend fun updateRol(id: Int, rol: String)
+
+    @Query("DELETE FROM users WHERE id = :id")
+    suspend fun deleteById(id: Int)
 }

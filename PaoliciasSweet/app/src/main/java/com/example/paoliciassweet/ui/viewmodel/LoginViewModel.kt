@@ -1,7 +1,6 @@
 package com.example.paoliciassweet.ui.viewmodel
 
 import android.content.Context
-import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paoliciassweet.data.database.AppDatabase
 import com.example.paoliciassweet.model.LoginModel
+import com.example.paoliciassweet.model.Validaciones
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
@@ -23,14 +23,14 @@ class LoginViewModel : ViewModel() {
         uiState = uiState.copy(password = password, passwordError = null, errorMessage = null)
     }
 
-    fun onLoginClick(context: Context, onSuccess: () -> Unit) {
+    fun onLoginClick(context: Context, onSuccess: (String) -> Unit) {
         val state = uiState
         val email = state.email.trim()
 
         // Validación por campo
         val emailError = when {
             email.isBlank() -> "Ingresa tu correo."
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> "El correo no es válido."
+            !Validaciones.correoValido(email) -> "El correo no es válido."
             else -> null
         }
         val passwordError = if (state.password.isBlank()) "Ingresa tu contraseña." else null
@@ -46,7 +46,7 @@ class LoginViewModel : ViewModel() {
 
             if (user != null && user.password == state.password) {
                 uiState = uiState.copy(errorMessage = null)
-                onSuccess() // Inicia sesión con éxito
+                onSuccess(user.rol) // Inicia sesión con éxito y entrega el rol (Cliente o Administrador)
             } else {
                 uiState = uiState.copy(errorMessage = "Correo o contraseña incorrectos.")
             }

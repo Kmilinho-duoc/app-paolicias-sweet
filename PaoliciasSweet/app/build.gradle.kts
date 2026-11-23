@@ -64,7 +64,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // muestra las peticiones en Logcat
 
     testImplementation(libs.junit)
+    testImplementation("io.mockk:mockk:1.13.12")
     implementation("io.coil-kt:coil-compose:2.7.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
