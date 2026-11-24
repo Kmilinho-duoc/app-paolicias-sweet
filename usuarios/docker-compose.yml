@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_usuarios
+    restart: always
+    environment:
+      POSTGRES_DB: usuariosdb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d usuariosdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  usuarios-api:
+    build: .
+    container_name: usuarios_api
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    environment:
+      PORT: 8083
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: usuariosdb
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DDL_AUTO: update
+      SHOW_SQL: "false"
+
+volumes:
+  postgres_data:
