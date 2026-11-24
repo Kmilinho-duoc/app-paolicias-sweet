@@ -12,7 +12,9 @@ Este proyecto trata del desarrollo de una aplicación móvil para la gestión, c
 | Microservicio | Puerto | Endpoints |
 
 | Usuarios | 8083 | `GET/POST /api/usuarios` · `GET/PUT/DELETE /api/usuarios/{id}` · `GET /api/usuarios/email/{email}` |
+
 | Productos | 8081 | `GET/POST /api/productos` · `GET/PUT/DELETE /api/productos/{id}` · `GET/POST /api/productos/{id}/imagen` |
+
 | Reservas | 8082 | `GET/POST /api/reservas` · `GET/DELETE /api/reservas/{id}` · `PATCH /api/reservas/{id}/estado` · `GET/POST /api/reservas/{id}/comprobante` |
 
 # Estructura
